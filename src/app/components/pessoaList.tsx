@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Pessoa } from "../interfaces/Pessoa";
 import { fetchPessoas } from "../service/apiService";
+import { formatDate } from "../utils/formatDate";
 
 const PessoaList = () => {
     const [pessoas, setPessoas] = useState<Pessoa[]>([]);
@@ -24,6 +25,7 @@ const PessoaList = () => {
         loadPessoas();
     }, []);
 
+    console.log(pessoas);
     return (
         <div>
             <h2>Lista de pessoas</h2>
@@ -31,9 +33,8 @@ const PessoaList = () => {
                 <ul>
                     {pessoas.map((pessoa) => (
                     <li key={pessoa.email}>
-                        {pessoa.nome} - {pessoa.idade} - {pessoa.email} - {new Date(pessoa.dataNascimento).toLocaleDateString()}
-                    </li>
-                
+                        {pessoa.nome} - {pessoa.idade} - {pessoa.email} - {formatDate(pessoa.data_nascimento)}
+                    </li>                
             ))}
                 </ul>
             ) : (

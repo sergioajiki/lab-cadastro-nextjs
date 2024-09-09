@@ -1,6 +1,7 @@
 export interface Pessoa {
+    id?: number;
     nome: string;
     idade: number;
     email: string;
-    dataNascimento: Date;
+    data_nascimento: string;
 }

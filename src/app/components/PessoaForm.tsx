@@ -10,7 +10,7 @@ const PessoaForm = () => {
         nome: "",
         idade: 0,
         email: "",
-        dataNascimento: new Date(),
+        data_nascimento: "",
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ const PessoaForm = () => {
             />
             <input
                 type="date"
-                name="dataNascimento"
+                name="data_nascimento"
                 placeholder="Data de Nascimento"
                 onChange={handleChange}
             />
