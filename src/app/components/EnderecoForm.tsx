@@ -72,6 +72,7 @@ const EnderecoForm = () => {
                 placeholder="Estado"
                 onChange={handleChange}
             />
+            <br></br>
             <button type="submit">
                 Cadastrar Endereço
             </button>

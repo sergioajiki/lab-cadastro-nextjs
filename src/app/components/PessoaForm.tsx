@@ -49,6 +49,7 @@ const PessoaForm = () => {
                 placeholder="Data de Nascimento"
                 onChange={handleChange}
             />
+            <br></br>
             <button type="submit">Cadastrar Pessoa</button>
         </form>
     );

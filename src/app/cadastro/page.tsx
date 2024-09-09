@@ -1,3 +1,4 @@
+import EnderecoForm from "../components/EnderecoForm";
 import PessoaForm from "../components/PessoaForm";
 
 export default function Cadastro() {
@@ -7,7 +8,8 @@ export default function Cadastro() {
             <h3>Pessoa</h3>
             <PessoaForm />
             <h3>Endereço</h3>
-            
+            <EnderecoForm />
+
         </div>
     )
 }
