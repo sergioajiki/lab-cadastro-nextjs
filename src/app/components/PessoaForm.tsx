@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Pessoa } from "../interfaces/Pessoa";
-import exp from "constants";
 
 const PessoaForm = () => {
     const { addPessoa } = useAppContext();
