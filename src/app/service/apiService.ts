@@ -9,3 +9,16 @@ export const fetchPessoas = async (): Promise<Pessoa[]> => {
     }
     return response.json()
 }
+
+export const cadastrarPessoa = async(pessoa: Pessoa): Promise<void> => {
+    const response = await fetch("http://localhost:8080/pessoa/cadastrarPessoa", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pessoa),
+    });
+    if (!response.ok) {
+        throw new Error("Erro ao cadastrar pessoa");
+    }
+}

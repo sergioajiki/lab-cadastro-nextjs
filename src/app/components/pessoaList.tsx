@@ -25,7 +25,9 @@ const PessoaList = () => {
         loadPessoas();
     }, []);
 
-    console.log(pessoas);
+    if (loading) return <p>Carregando...</p>;
+    if (error) return <p>Erro: {error}</p>;
+
     return (
         <div>
             <h2>Lista de pessoas</h2>
@@ -33,7 +35,7 @@ const PessoaList = () => {
                 <ul>
                     {pessoas.map((pessoa) => (
                     <li key={pessoa.email}>
-                        {pessoa.nome} - {pessoa.idade} - {pessoa.email} - {formatDate(pessoa.data_nascimento)}
+                        {pessoa.nome} - {pessoa.idade} anos   - {pessoa.email} - {formatDate(pessoa.data_nascimento)}
                     </li>                
             ))}
                 </ul>

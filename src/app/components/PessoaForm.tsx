@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Pessoa } from "../interfaces/Pessoa";
+import { cadastrarPessoa } from "../service/apiService";
+
 
 const PessoaForm = () => {
     const { addPessoa } = useAppContext();
@@ -11,16 +13,25 @@ const PessoaForm = () => {
         idade: 0,
         email: "",
         data_nascimento: "",
+        endereco: {
+            id: null
+        }
     });
+    const [message, setMessage] = useState<string | null>(null);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setPessoa((prev) => ({ ...prev, [name]: value }));
     };
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        addPessoa(pessoa);
-        alert("Pessoa cadastrada com sucesso");
+        try {
+            await cadastrarPessoa(pessoa);
+            setMessage("Pessoa cadastrada com sucesso!");
+
+        } catch (error: any) {
+            setMessage('Erro: ${error.message}')
+        }
     };
 
     return (

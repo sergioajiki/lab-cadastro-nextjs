@@ -4,4 +4,7 @@ export interface Pessoa {
     idade: number;
     email: string;
     data_nascimento: string;
+    endereco: {
+        id: number | null; // id pode ser número ou null
+    }
 }
