@@ -1,6 +1,6 @@
 "use client";
 
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, ReactNode, useContext, useState} from "react";
 import { Pessoa } from "../interfaces/Pessoa";
 import { Endereco } from "../interfaces/Endereco";
 
