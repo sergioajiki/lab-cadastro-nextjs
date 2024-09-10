@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Pessoa } from "../interfaces/Pessoa";
 import { cadastrarPessoa } from "../service/apiService";
+import { formatToDDMMYYYY } from "../utils/formatDate";
 
 
 const PessoaForm = () => {
@@ -26,11 +27,30 @@ const PessoaForm = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            await cadastrarPessoa(pessoa);
+            console.log(pessoa);
+            const pessoaComDataFormatada = {
+                ...pessoa,
+                data_nascimento: formatToDDMMYYYY(pessoa.data_nascimento)
+            }
+            console.log(pessoaComDataFormatada);
+            
+            await cadastrarPessoa(pessoaComDataFormatada);
+            addPessoa(pessoaComDataFormatada)
             setMessage("Pessoa cadastrada com sucesso!");
 
+            //Limpa o formulário
+            setPessoa({
+                nome: "",
+                idade: 0,
+                email: "",
+                data_nascimento: "",
+                endereco: {
+                    id: null
+                }
+            });
+
         } catch (error: any) {
-            setMessage('Erro: ${error.message}')
+            setMessage(`Erro: ${error.message}`);
         }
     };
 
@@ -62,6 +82,7 @@ const PessoaForm = () => {
             />
             <br></br>
             <button type="submit">Cadastrar Pessoa</button>
+            {message && <p>{message}</p>}
         </form>
     );
 };
