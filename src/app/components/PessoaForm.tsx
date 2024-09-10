@@ -6,7 +6,7 @@ import { Pessoa } from "../interfaces/Pessoa";
 import { cadastrarPessoa } from "../service/apiService";
 import { formatToDDMMYYYY } from "../utils/formatDate";
 import { isValidEmail } from "../utils/validateEmail";
-import { areFieldsValidPessoa } from "../utils/validadeFieldsPessoa";
+import { areFieldsValidPessoa } from "../utils/validateFieldsPessoa";
 
 
 const PessoaForm = () => {

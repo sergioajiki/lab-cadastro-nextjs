@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Endereco } from "../interfaces/Endereco";
-import React from "react";
+import { cadastrarEndereco } from "../service/apiService";
+//import React from "react";
+import { areFieldsValidEndereco } from "../utils/validateFielsEndereco";
+import { isValidCep } from "../utils/validatecep";
 
 const EnderecoForm = () => {
     const { addEndereco } = useAppContext();
@@ -16,16 +19,44 @@ const EnderecoForm = () => {
         cidade: "",
         estado: "",
     })
+    const [message, setMessage] = useState<string | null>(null);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setEndereco((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        addEndereco(endereco);
-        alert("Endereço cadastrado com sucesso");
+
+        if (!areFieldsValidEndereco(endereco)) {
+            setMessage("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        if (!isValidCep(endereco.cep)) {
+            setMessage("Cep inválido");
+            return;
+        } 
+        try {
+            console.log(endereco);
+            await cadastrarEndereco(endereco);
+            addEndereco(endereco);
+            setMessage("Endereço cadastrado com sucesso!")
+
+            setEndereco({
+                logradouro: "",
+                numero: "",
+                complemento: "",
+                bairro: "",
+                cep: "",
+                cidade: "",
+                estado: "",
+            });
+
+        } catch (error: any) {
+            setMessage(`Erro: ${error.message}`);
+        }
     };
 
     return (
@@ -38,7 +69,7 @@ const EnderecoForm = () => {
             />
             <input
                 type="text"
-                name="number"
+                name="numero"
                 placeholder="Número"
                 onChange={handleChange}
             />
@@ -52,12 +83,14 @@ const EnderecoForm = () => {
                 type="text"
                 name="bairro"
                 placeholder="Bairro"
+                
                 onChange={handleChange}
             />
             <input
                 type="text"
                 name="cep"
                 placeholder="CEP"
+                maxLength={8}
                 onChange={handleChange}
             />
             <input
@@ -70,12 +103,14 @@ const EnderecoForm = () => {
                 type="text"
                 name="estado"
                 placeholder="Estado"
+                maxLength={2}
                 onChange={handleChange}
             />
             <br></br>
             <button type="submit">
                 Cadastrar Endereço
             </button>
+            {message && <p>{message}</p>}
         </form>
     );
 };

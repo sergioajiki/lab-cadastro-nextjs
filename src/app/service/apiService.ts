@@ -1,3 +1,4 @@
+import { Endereco } from "../interfaces/Endereco";
 import { Pessoa } from "../interfaces/Pessoa";
 
 //Busca a lista de pessoas da API
@@ -20,5 +21,18 @@ export const cadastrarPessoa = async(pessoa: Pessoa): Promise<void> => {
     });
     if (!response.ok) {
         throw new Error("Erro ao cadastrar pessoa");
+    }
+}
+
+export const cadastrarEndereco = async(endereco: Endereco): Promise<void> => {
+    const response = await fetch("http://localhost:8080/endereco/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(endereco),
+    });
+    if (!response.ok) {
+        throw new Error("Erro ao cadastrar endereço");
     }
 }
