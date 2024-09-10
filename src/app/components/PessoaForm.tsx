@@ -5,6 +5,8 @@ import { useAppContext } from "../context/AppContext";
 import { Pessoa } from "../interfaces/Pessoa";
 import { cadastrarPessoa } from "../service/apiService";
 import { formatToDDMMYYYY } from "../utils/formatDate";
+import { isValidEmail } from "../utils/validateEmail";
+import { areFieldsValidPessoa } from "../utils/validadeFieldsPessoa";
 
 
 const PessoaForm = () => {
@@ -26,6 +28,16 @@ const PessoaForm = () => {
     };
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        if (!areFieldsValidPessoa(pessoa)) {
+            setMessage("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        if (!isValidEmail(pessoa.email)) {
+            setMessage("Email inválido. Por favor, insira um e-mail válido.");
+            return;
+        }
         try {
             console.log(pessoa);
             const pessoaComDataFormatada = {
